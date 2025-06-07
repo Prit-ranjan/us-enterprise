@@ -48,7 +48,7 @@ export default function App() {
 
       <section className="product-section" id="products">
         <ProductCarousel  products={products} />
-        <div>
+        <div style={{padding:"20px"}}>
         <h2 className="section-title">Our Products</h2>
         <div className="product-grid">
           {products.map((product) => (
