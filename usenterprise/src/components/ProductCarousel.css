@@ -1,189 +1,147 @@
 .carousel-fullscreen {
+  position: relative;
+  background: linear-gradient(135deg, #1e2a47, #162033);
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
-  background: #f4f7fa;
-  padding: 40px 20px;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
+  height: 70vh;
+  padding: 2rem;
+  /* border-radius: 15px; */
+  margin-top: 10px;
+  perspective: 1500px; /* Adds perspective for 3D transforms */
 }
 
 .carousel-content {
+  background: #1f2937; /* Dark panel background */
+  border-radius: 15px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 209, 102, 0.4);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  transition: transform 0.6s ease;
-  padding: 20px;
-  max-width: 1000px;
-  margin: auto;
-  flex-wrap: nowrap;
+  max-width: 900px;
   width: 100%;
-  box-sizing: border-box;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
 }
 
-/* Slide-in animations */
+/* On slide, add subtle tilt for 3D feel */
 .slide-next {
-  animation: slideInFromRight 0.6s forwards;
+  transform: rotateY(-15deg) translateX(20px);
+  box-shadow: 0 20px 50px rgba(0, 209, 102, 0.6);
 }
 
 .slide-prev {
-  animation: slideInFromLeft 0.6s forwards;
+  transform: rotateY(15deg) translateX(-20px);
+  box-shadow: 0 20px 50px rgba(0, 209, 102, 0.6);
 }
 
-@keyframes slideInFromRight {
-  from {
-    opacity: 0;
-    transform: translateX(80%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInFromLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-80%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Image styling */
 .carousel-image {
-  flex-shrink: 0;
-  width: 400px;
-  height: 300px;
+  width: 50%;
   object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  transition: transform 0.6s ease;
+  backface-visibility: hidden;
 }
 
-/* Text section */
+/* Slight zoom on image on hover */
+.carousel-content:hover .carousel-image {
+  transform: scale(1.05);
+}
+
 .carousel-text {
-  min-width: 300px;
-  max-width: 500px;
-  flex-grow: 1;
-  text-align: left;
-}
-
-.carousel-text h3 {
-  font-size: 1.8rem;
-  color: #222;
-  margin-bottom: 10px;
-}
-
-.carousel-text p {
-  font-size: 1rem;
-  color: #444;
-  margin-bottom: 16px;
+  padding: 2rem;
+  color: #cfd8dc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  backface-visibility: hidden;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .whatsapp-button {
-  background-color: #25d366;
-  color: white;
-  padding: 10px 20px;
+  margin-top: 1.5rem;
+  background: #00d166;
+  color: #0a2540;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-weight: 700;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 209, 102, 0.4);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .whatsapp-button:hover {
-  background-color: #1da851;
+  background: #00b04a;
+  box-shadow: 0 8px 20px rgba(0, 176, 74, 0.7);
 }
 
-/* Navigation arrows */
+/* Arrow Buttons with shadow */
 .carousel-nav {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  color: #333;
-  background: rgba(255, 255, 255, 0.7);
-  border: none;
-  padding: 10px 16px;
-  cursor: pointer;
+  background: rgba(0, 209, 102, 0.8);
   border-radius: 50%;
-  z-index: 10;
+  width: 44px;
+  height: 44px;
+  color: #0a2540;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  transform: translateY(-50%);
+  box-shadow: 0 8px 20px rgba(0, 209, 102, 0.6);
   transition: background 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
 }
 
 .carousel-nav:hover {
-  background: rgba(255, 255, 255, 0.95);
+  background: #00b04a;
+  box-shadow: 0 12px 30px rgba(0, 176, 74, 0.8);
 }
 
 .carousel-nav.left {
-  left: 20px;
+  left: 2rem;
 }
 
 .carousel-nav.right {
-  right: 20px;
+  right: 2rem;
 }
 
-/* Responsive styles */
+/* Responsive: stack text below image */
 @media (max-width: 768px) {
   .carousel-content {
     flex-direction: column;
-    flex-wrap: wrap;
-    gap: 20px;
+    border-radius: 12px;
   }
 
+  .carousel-image,
   .carousel-text {
-    text-align: center;
-  }
-
-  .carousel-text h3 {
-    font-size: 1.4rem;
-  }
-
-  .carousel-text p {
-    font-size: 0.95rem;
+    width: 100%;
   }
 
   .carousel-image {
-    width: 100%;
-    max-height: 250px;
-    height: auto;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .carousel-text {
+    padding: 1.5rem 1rem 2rem;
+    text-align: center;
+  }
+  .carousel-text {
+    text-align: center; /* Center all text inside carousel text */
   }
 
   .whatsapp-button {
-    font-size: 0.95rem;
-  }
-
-  .carousel-nav {
-    display: none;
-  }
-}
-
-@media (max-width: 410px) {
-  .carousel-content {
-    flex-direction: column; /* stack image and text vertically */
-    align-items: center;    /* center items horizontally */
-    justify-content: center; /* center items vertically if needed */
-    padding: 10px;
-  }
-
-  .carousel-image {
-    margin: 0 auto;       /* center image */
-    width: 90vw;          /* make image take most of viewport width */
-    max-width: 300px;     /* optional max width */
-    height: auto;         /* keep aspect ratio */
-    display: block;       /* ensure block for margin auto */
-  }
-
-  .carousel-text {
-    text-align: center;   /* center text under the image */
-    margin-top: 15px;
-    width: 100%;
+    display: inline-block; /* So margin auto works */
+    margin: 1rem auto 0 auto; /* Center horizontally with some top margin */
+    float: none !important; /* Override any float */
   }
 }

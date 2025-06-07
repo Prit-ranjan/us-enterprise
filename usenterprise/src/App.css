@@ -19,37 +19,12 @@
 }
 
 .nav-bar {
-  background-color: #333;
-  padding: 0.75rem 2rem;
-}
-
-.nav-list {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-link {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-  color: #4dc247; /* WhatsApp green highlight */
-}
-
-/* Nav base */
-.nav-bar {
-  background-color: #333;
-  padding: 0.75rem 2rem;
+  background-color: #0a2540; /* Deep navy */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   position: sticky;
   top: 0;
   z-index: 1000;
+  padding: 0.75rem 1.5rem;
 }
 
 .nav-container {
@@ -58,67 +33,116 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
 }
 
 .nav-logo {
-  color: white;
-  font-weight: 700;
-  font-size: 1.25rem;
+  font-weight: 900;
+  font-size: 1.8rem;
+  letter-spacing: 0.15em;
+  color: #00d166;
   user-select: none;
 }
 
 .nav-toggle {
-  font-size: 1.5rem;
-  color: white;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 22px;
   background: none;
   border: none;
   cursor: pointer;
-  display: none; /* hidden on desktop */
+  padding: 0;
+  z-index: 1100;
+}
+
+.nav-toggle .bar {
+  height: 3px;
+  width: 100%;
+  background-color: #00d166;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: 1px;
+}
+
+/* Hamburger open animation */
+.nav-toggle.open .bar:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.nav-toggle.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open .bar:nth-child(3) {
+  transform: rotate(-45deg);
 }
 
 .nav-list {
   list-style: none;
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
   margin: 0;
   padding: 0;
 }
 
 .nav-link {
   color: #fff;
-  text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
+  text-decoration: none;
+  position: relative;
   transition: color 0.3s ease;
 }
 
-.nav-link:hover {
-  color: #4dc247;
+.nav-link::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 2px;
+  background: #00d166;
+  transition: width 0.3s ease;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
 }
 
-/* Responsive: Mobile */
+.nav-link:hover,
+.nav-link:focus {
+  color: #00d166;
+}
+
+.nav-link:hover::after,
+.nav-link:focus::after {
+  width: 100%;
+}
+
+/* Responsive for mobile */
 @media (max-width: 768px) {
   .nav-toggle {
-    display: block;
+    display: flex;
   }
 
   .nav-list {
-    width: 100%;
+    position: fixed;
+    top: 60px;
+    right: 0;
+    background-color: #0a2540;
+    height: calc(100vh - 60px);
+    width: 250px;
     flex-direction: column;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+    gap: 1.5rem;
+    padding: 2rem 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: -3px 0 8px rgba(0, 0, 0, 0.3);
   }
 
   .nav-list.nav-list-open {
-    max-height: 300px; /* enough to show all links */
-  }
-
-  .nav-list li {
-    padding: 0.75rem 0;
+    transform: translateX(0);
   }
 }
+
 
 /* Fix header text overflow on small screens */
 .app-header {
@@ -132,6 +156,17 @@
   margin: 0;
   white-space: normal;
   overflow-wrap: break-word;
+}
+
+.map-container {
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
 }
 
 @media (max-width: 480px) {
