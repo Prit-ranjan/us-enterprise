@@ -1,0 +1,144 @@
+.app-container {
+  padding: 20px;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+.app-header {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.nav-bar {
+  background-color: #333;
+  padding: 0.75rem 2rem;
+}
+
+.nav-list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #4dc247; /* WhatsApp green highlight */
+}
+
+/* Nav base */
+.nav-bar {
+  background-color: #333;
+  padding: 0.75rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.nav-logo {
+  color: white;
+  font-weight: 700;
+  font-size: 1.25rem;
+  user-select: none;
+}
+
+.nav-toggle {
+  font-size: 1.5rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* hidden on desktop */
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #4dc247;
+}
+
+/* Responsive: Mobile */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    width: 100%;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .nav-list.nav-list-open {
+    max-height: 300px; /* enough to show all links */
+  }
+
+  .nav-list li {
+    padding: 0.75rem 0;
+  }
+}
+
+/* Fix header text overflow on small screens */
+.app-header {
+  padding: 1rem 2rem;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.app-title {
+  font-size: 4rem;
+  margin: 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 1.5rem;
+  }
+  .app-subtitle {
+    font-size: 1rem;
+  }
+}
