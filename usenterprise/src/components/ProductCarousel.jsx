@@ -4,37 +4,56 @@ import "./ProductCarousel.css";
 
 export default function ProductCarousel({ products }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState("next");
+  const [animating, setAnimating] = useState(false);
   const total = products.length;
+
+  const product = products[currentIndex];
 
   // Swipe handlers
   const handlers = useSwipeable({
-    onSwipedLeft: () => next(),
-    onSwipedRight: () => prev(),
+    onSwipedLeft: () => handleSlide("next"),
+    onSwipedRight: () => handleSlide("prev"),
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
 
-  const next = () => {
-    setCurrentIndex((prev) => (prev + 1) % total);
+  const handleSlide = (direction) => {
+    if (animating) return;
+
+    setSlideDirection(direction);
+    setAnimating(true);
+
+    setCurrentIndex((prevIndex) => {
+      if (direction === "next") return (prevIndex + 1) % total;
+      else return (prevIndex - 1 + total) % total;
+    });
   };
 
-  const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 + total) % total);
-  };
-
-  // Auto slide every 4 seconds
+  // Auto slide every 3 seconds
   useEffect(() => {
-    const timer = setInterval(() => {
-      next();
-    }, 4000);
-    return () => clearInterval(timer);
+    const interval = setInterval(() => {
+      handleSlide("next");
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
-  const product = products[currentIndex];
+  // Reset animating after animation duration
+  useEffect(() => {
+    if (!animating) return;
+    const timeout = setTimeout(() => {
+      setAnimating(false);
+    }, 600);
+    return () => clearTimeout(timeout);
+  }, [animating]);
 
   return (
     <div className="carousel-fullscreen" {...handlers}>
-      <div className="carousel-content">
+      <div
+        className={`carousel-content ${
+          animating ? `slide-${slideDirection}` : ""
+        }`}
+      >
         <img
           src={product.image}
           alt={product.name}
@@ -59,17 +78,17 @@ export default function ProductCarousel({ products }) {
         </div>
       </div>
 
-      {/* Arrow buttons visible only on desktop */}
+      {/* Desktop nav buttons */}
       <button
         className="carousel-nav left"
-        onClick={prev}
+        onClick={() => handleSlide("prev")}
         aria-label="Previous Slide"
       >
         &#10094;
       </button>
       <button
         className="carousel-nav right"
-        onClick={next}
+        onClick={() => handleSlide("next")}
         aria-label="Next Slide"
       >
         &#10095;
