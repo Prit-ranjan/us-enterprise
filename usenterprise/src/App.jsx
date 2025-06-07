@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { products } from "./data/products";
 import ProductCard from "./components/ProductCard";
+import ProductCarousel from "./components/ProductCarousel";
 import "./App.css";
 
 function Navigation() {
@@ -37,6 +38,7 @@ export default function App() {
       </header>
 
       <section className="product-section" id="products">
+        <ProductCarousel />
         <h2 className="section-title">Our Products</h2>
         <div className="product-grid">
           {products.map((product) => (
