@@ -47,8 +47,8 @@ export default function App() {
 
       <footer className="footer" id="contact" style={{ backgroundColor: "#1f1f1f", color: "#fff", padding: "2rem", textAlign: "center", marginTop: "4rem" }}>
         <h3 style={{ marginBottom: "1rem" }}>Contact Us</h3>
-        <p><strong>WhatsApp:</strong> <a href="https://wa.me/919591313418" target="_blank" rel="noopener noreferrer" style={{ color: "#4dc247" }}>+91 12345 6789</a></p>
-        <p><strong>Email:</strong> <a href="mailto:contact@usenterprised.com" style={{ color: "#4dc2c2" }}>contact@usenterprised.com</a></p>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/919591313418" target="_blank" rel="noopener noreferrer" style={{ color: "#4dc247" }}>+91 95913 13418</a></p>
+        <p><strong>Email:</strong> <a href="mailto:contact@usenterprised.com" style={{ color: "#4dc2c2" }}>contact@usenterprise.com</a></p>
         <p className="footer-note" style={{ marginTop: "1rem", fontSize: "0.9rem", color: "#ccc" }}>
           &copy; {new Date().getFullYear()} USENTERPRISED. All rights reserved.
         </p>
