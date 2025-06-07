@@ -159,8 +159,31 @@
   .whatsapp-button {
     font-size: 0.95rem;
   }
-  
+
   .carousel-nav {
     display: none;
+  }
+}
+
+@media (max-width: 410px) {
+  .carousel-content {
+    flex-direction: column; /* stack image and text vertically */
+    align-items: center;    /* center items horizontally */
+    justify-content: center; /* center items vertically if needed */
+    padding: 10px;
+  }
+
+  .carousel-image {
+    margin: 0 auto;       /* center image */
+    width: 90vw;          /* make image take most of viewport width */
+    max-width: 300px;     /* optional max width */
+    height: auto;         /* keep aspect ratio */
+    display: block;       /* ensure block for margin auto */
+  }
+
+  .carousel-text {
+    text-align: center;   /* center text under the image */
+    margin-top: 15px;
+    width: 100%;
   }
 }
