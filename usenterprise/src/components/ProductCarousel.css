@@ -159,4 +159,8 @@
   .whatsapp-button {
     font-size: 0.95rem;
   }
+  
+  .carousel-nav {
+    display: none;
+  }
 }

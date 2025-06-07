@@ -1,64 +1,40 @@
 import React, { useState, useEffect } from "react";
-import { products } from "../data/products";
+import { useSwipeable } from "react-swipeable";
 import "./ProductCarousel.css";
 
-export default function ProductCarousel() {
+export default function ProductCarousel({ products }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [slideDirection, setSlideDirection] = useState("next");
-  const [animating, setAnimating] = useState(false);
+  const total = products.length;
+
+  // Swipe handlers
+  const handlers = useSwipeable({
+    onSwipedLeft: () => next(),
+    onSwipedRight: () => prev(),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  });
+
+  const next = () => {
+    setCurrentIndex((prev) => (prev + 1) % total);
+  };
+
+  const prev = () => {
+    setCurrentIndex((prev) => (prev - 1 + total) % total);
+  };
+
+  // Auto slide every 4 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      next();
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   const product = products[currentIndex];
 
-  // Auto-play
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const handlePrev = () => {
-    setSlideDirection("prev");
-    setAnimating(true);
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? products.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handleNext = () => {
-    setSlideDirection("next");
-    setAnimating(true);
-    setCurrentIndex((prevIndex) =>
-      prevIndex === products.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const openWhatsApp = () => {
-    const message = encodeURIComponent(product.whatsappText);
-    window.open(`https://wa.me/91123456789?text=${message}`, "_blank");
-  };
-
-  // Reset animation trigger
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setAnimating(false);
-    }, 600); // match the animation duration
-
-    return () => clearTimeout(timeout);
-  }, [currentIndex]);
-
   return (
-    <div className="carousel-fullscreen">
-      <button className="carousel-nav left" onClick={handlePrev}>
-        &#10094;
-      </button>
-
-      <div
-        className={`carousel-content ${
-          animating ? `slide-${slideDirection}` : ""
-        }`}
-      >
+    <div className="carousel-fullscreen" {...handlers}>
+      <div className="carousel-content">
         <img
           src={product.image}
           alt={product.name}
@@ -67,13 +43,35 @@ export default function ProductCarousel() {
         <div className="carousel-text">
           <h3>{product.name}</h3>
           <p>{product.description}</p>
-          <button className="whatsapp-button" onClick={openWhatsApp}>
+          <button
+            onClick={() =>
+              window.open(
+                `https://wa.me/91123456789?text=${encodeURIComponent(
+                  product.whatsappText
+                )}`,
+                "_blank"
+              )
+            }
+            className="whatsapp-button"
+          >
             Order via WhatsApp
           </button>
         </div>
       </div>
 
-      <button className="carousel-nav right" onClick={handleNext}>
+      {/* Arrow buttons visible only on desktop */}
+      <button
+        className="carousel-nav left"
+        onClick={prev}
+        aria-label="Previous Slide"
+      >
+        &#10094;
+      </button>
+      <button
+        className="carousel-nav right"
+        onClick={next}
+        aria-label="Next Slide"
+      >
         &#10095;
       </button>
     </div>

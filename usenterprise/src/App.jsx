@@ -38,7 +38,7 @@ export default function App() {
       </header>
 
       <section className="product-section" id="products">
-        <ProductCarousel />
+        <ProductCarousel  products={products} />
         <h2 className="section-title">Our Products</h2>
         <div className="product-grid">
           {products.map((product) => (
