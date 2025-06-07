@@ -4,7 +4,7 @@ import "./ProductCard.css";
 export default function ProductCard({ product }) {
   const openWhatsApp = () => {
     const message = encodeURIComponent(product.whatsappText);
-    window.open(`https://wa.me/91123456789?text=${message}`, "_blank");
+    window.open(`https://wa.me/919591313418?text=${message}`, "_blank");
   };
 
   return (
